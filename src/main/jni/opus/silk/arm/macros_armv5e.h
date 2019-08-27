@@ -56,7 +56,7 @@ static OPUS_INLINE opus_int32 silk_SMLAWB_armv5e(opus_int32 a, opus_int32 b,
 {
   int res;
   __asm__(
-      //"#silk_SMLAWB\n\t"
+      "#silk_SMLAWB\n\t"
       "smlawb %0, %1, %2, %3\n\t"
       : "=r"(res)
       : "r"(b), "r"(c), "r"(a)
@@ -71,7 +71,7 @@ static OPUS_INLINE opus_int32 silk_SMULWT_armv5e(opus_int32 a, opus_int32 b)
 {
   int res;
   __asm__(
-      //"#silk_SMULWT\n\t"
+      "#silk_SMULWT\n\t"
       "smulwt %0, %1, %2\n\t"
       : "=r"(res)
       : "r"(a), "r"(b)

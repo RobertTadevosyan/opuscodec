@@ -91,30 +91,6 @@ static OPUS_INLINE opus_uint32 opus_cpu_capabilities(void){
   return flags;
 }
 
-#elif defined(__ANDROID__)
-#include <cpu-features.h>
-
-opus_uint32 opus_cpu_capabilities(void)
-{
-  opus_uint32 flags = 0;
-  uint64_t cpufeatures = android_getCpuFeatures();
-# if defined(OPUS_ARM_MAY_HAVE_EDSP) || defined(OPUS_ARM_MAY_HAVE_MEDIA) \
- || defined(OPUS_ARM_MAY_HAVE_NEON) || defined(OPUS_ARM_MAY_HAVE_NEON_INTR)
-  if (cpufeatures & ANDROID_CPU_ARM_FEATURE_VFPv2)
-    flags |= OPUS_CPU_ARM_EDSP_FLAG;
-#  if defined(OPUS_ARM_MAY_HAVE_NEON) || defined(OPUS_ARM_MAY_HAVE_NEON_INTR)
-  if (cpufeatures & ANDROID_CPU_ARM_FEATURE_NEON)
-    flags |= OPUS_CPU_ARM_NEON_FLAG;
-#  endif
-# endif
-# if defined(OPUS_ARM_MAY_HAVE_MEDIA) \
- || defined(OPUS_ARM_MAY_HAVE_NEON) || defined(OPUS_ARM_MAY_HAVE_NEON_INTR)
-  if (cpufeatures & ANDROID_CPU_ARM_FEATURE_VFPv2)
-    flags |= OPUS_CPU_ARM_MEDIA_FLAG;
-# endif
-  return flags;
-}
-
 #elif defined(__linux__)
 /* Linux based */
 opus_uint32 opus_cpu_capabilities(void)
